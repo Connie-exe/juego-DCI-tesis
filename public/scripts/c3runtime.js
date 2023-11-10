@@ -4358,6 +4358,8 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Audio.Acts.Play,
 		C3.Plugins.System.Cnds.PickRandom,
 		C3.Plugins.Sprite.Acts.Spawn,
+		C3.Plugins.Sprite.Acts.SetAnim,
+		C3.Plugins.System.Exps.choose,
 		C3.Plugins.Sprite.Cnds.OnCreated,
 		C3.Behaviors.MoveTo.Acts.MoveToPosition,
 		C3.Plugins.System.Exps.random,
@@ -4366,6 +4368,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Sprite.Acts.SetEffectEnabled,
 		C3.Plugins.Sprite.Acts.SetEffectParam,
 		C3.Plugins.Sprite.Cnds.IsOnScreen,
+		C3.Plugins.Sprite.Cnds.IsAnimPlaying,
 		C3.Behaviors.MoveTo.Cnds.OnArrived,
 		C3.Plugins.Sprite.Exps.X,
 		C3.Plugins.Sprite.Exps.Y,
@@ -4381,6 +4384,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Sprite.Exps.ImagePointX,
 		C3.Plugins.Particles.Exps.Y,
 		C3.Plugins.Sprite.Exps.ImagePointY,
+		C3.Plugins.Audio.Acts.StopAll,
 		C3.Plugins.List.Exps.SelectedText,
 		C3.Plugins.TextBox.Exps.Text
 	];
@@ -4388,7 +4392,7 @@ self.C3_GetObjectRefTable = function () {
 self.C3_JsPropNameTable = [
 	{Pathfinding: 0},
 	{MoveTo: 0},
-	{s_dragon: 0},
+	{s_bichito: 0},
 	{s_meta: 0},
 	{s_spawner: 0},
 	{s_fondo: 0},
@@ -4414,6 +4418,7 @@ self.C3_JsPropNameTable = [
 	{particles_stars: 0},
 	{particles_halo: 0},
 	{s_halo: 0},
+	{btn_postGame: 0},
 	{onScreen: 0},
 	{totalHits: 0},
 	{rightHits: 0},
@@ -4541,6 +4546,10 @@ self.C3_ExpressionFuncs = [
 		() => 0,
 		() => "SoundOnOff",
 		() => "Layer 0",
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0("Ball", "Dragon");
+		},
 		() => "Fondo",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
@@ -4550,7 +4559,8 @@ self.C3_ExpressionFuncs = [
 		() => "GlowHorizontal",
 		() => 60,
 		() => "GlowVertical",
-		() => "Paloma",
+		() => "Dragon",
+		() => "Ball",
 		p => {
 			const n0 = p._GetNode(0);
 			return () => n0.ExpObject();
