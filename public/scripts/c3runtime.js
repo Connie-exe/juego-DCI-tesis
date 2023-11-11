@@ -4344,7 +4344,6 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Audio,
 		C3.Plugins.Particles,
 		C3.Plugins.System.Cnds.OnLayoutStart,
-		C3.Behaviors.MoveTo.Acts.SetSpeed,
 		C3.Plugins.Text.Acts.SetText,
 		C3.Plugins.Particles.Acts.Destroy,
 		C3.Plugins.System.Cnds.Every,
@@ -4365,17 +4364,19 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.System.Exps.random,
 		C3.Plugins.System.Exps.layoutwidth,
 		C3.Plugins.System.Exps.layoutheight,
+		C3.Behaviors.MoveTo.Acts.SetMaxSpeed,
 		C3.Plugins.Sprite.Acts.SetEffectEnabled,
 		C3.Plugins.Sprite.Acts.SetEffectParam,
 		C3.Plugins.Sprite.Cnds.IsOnScreen,
-		C3.Plugins.Sprite.Cnds.IsAnimPlaying,
+		C3.Plugins.Audio.Acts.PlayByName,
+		C3.Plugins.Audio.Cnds.OnEnded,
 		C3.Behaviors.MoveTo.Cnds.OnArrived,
 		C3.Plugins.Sprite.Exps.X,
 		C3.Plugins.Sprite.Exps.Y,
-		C3.Plugins.Sprite.Cnds.OnCollision,
+		C3.Behaviors.Pathfinding.Cnds.OnArrived,
+		C3.Plugins.Touch.Cnds.OnTapGestureObject,
 		C3.Plugins.Sprite.Acts.Destroy,
 		C3.Plugins.Audio.Acts.Stop,
-		C3.Plugins.Touch.Cnds.OnTapGestureObject,
 		C3.Plugins.Sprite.Acts.SetAnimFrame,
 		C3.Plugins.Sprite.Exps.AnimationFrameCount,
 		C3.Plugins.System.Cnds.EveryTick,
@@ -4385,6 +4386,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Particles.Exps.Y,
 		C3.Plugins.Sprite.Exps.ImagePointY,
 		C3.Plugins.Audio.Acts.StopAll,
+		C3.Plugins.System.Acts.ResetGlobals,
 		C3.Plugins.List.Exps.SelectedText,
 		C3.Plugins.TextBox.Exps.Text
 	];
@@ -4529,7 +4531,6 @@ function or(l, r)
 }
 
 self.C3_ExpressionFuncs = [
-		() => 600,
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => and("Total Touches: ", v0.GetValue());
@@ -4556,10 +4557,14 @@ self.C3_ExpressionFuncs = [
 			const f1 = p._GetNode(1).GetBoundMethod();
 			return () => f0(0, f1());
 		},
+		() => 800,
 		() => "GlowHorizontal",
 		() => 60,
 		() => "GlowVertical",
-		() => "Dragon",
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => and("pelotachillona_", Math.round(f0(1, 6)));
+		},
 		() => "Ball",
 		p => {
 			const n0 = p._GetNode(0);
